@@ -1,0 +1,6 @@
+[
+  { "code": "AMERICAS", "url": "americas.api.riotgames.com" },
+  { "code": "ASIA", "url": "asia.api.riotgames.com" },
+  { "code": "EUROPE", "url": "europe.api.riotgames.com" },
+  { "code": "SEA", "url": "sea.api.riotgames.com" }
+]
