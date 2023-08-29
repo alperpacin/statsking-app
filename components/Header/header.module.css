@@ -1,0 +1,12 @@
+.navbar-link-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-link-content__image {
+  position: relative !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  object-fit: cover;
+}
