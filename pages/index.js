@@ -1,5 +1,6 @@
 import axios from "axios";
-import Header from "@/components/Header/header";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import GenericLayout from "@/layout/generic-layout";
 
 export default function Home() {
   const getSummoner = async () => {
@@ -16,79 +17,20 @@ export default function Home() {
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
-    >
-      <Header />
+    <GenericLayout className="min-h-screen bg-[url('/images/league-of-legends/background-image.jpg')] bg-origin-border bg-no-repeat bg-center bg-cover 2xl:bg-cover ">
+      <div className="absolute h-screen w-full bg-gradient-to-t from-primary from-10% to-transparent"></div>
+      <section className=" relative z-10 container flex flex-col pt-16  sm:justify-center h-screen w-full lg:w-2/3 xl:w-1/2 xl:max-w-[1140px]">
+        <h1 className="text-xl sm:text-5xl font-extrabold mt-10 mb-5 leading-snug tracking-wider text-shadow-md">
+          League of Legends
+        </h1>
+        <h3 className="text-xs sm:text-md tracking-wider text-foreground leading-normal mt-2 mb-4 text-shadow-sm">
+          Whether you're strategizing for your next match or simply curious
+          about your rivals, our platform lets you unlock their secrets and
+          elevate your game – because beyond stats, every player has a story.
+        </h3>
 
-      <button onClick={getSummoner}>Get Summoner</button>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    </main>
+        <SearchBar icon={"lol"} />
+      </section>
+    </GenericLayout>
   );
 }

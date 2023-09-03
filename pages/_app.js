@@ -13,7 +13,7 @@ const natoSans = Noto_Sans({
 export default function App({ Component, pageProps }) {
   return (
     <ClerkProvider {...pageProps}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
         <style jsx global>{`
           html {
             font-family: ${natoSans.style.fontFamily};

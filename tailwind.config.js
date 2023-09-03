@@ -80,6 +80,10 @@ module.exports = {
         "2xl": "blur(40px)",
         "3xl": "blur(64px)",
       },
+      textShadow: {
+        sm: "1px 1px 2px rgba(0, 0, 0, 0.1)",
+        md: "2px 2px 4px rgba(0, 0, 0, 0.15)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -7,7 +7,9 @@ import LolLogo from "../../public/images/lol-logo.svg";
 import ValorantLogo from "../../public/images/valorant-logo.svg";
 import TftLogo from "../../public/images/tft-logo.svg";
 import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
+import { useRouter } from "next/router";
+
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const navLinks = [
   {
@@ -28,14 +30,21 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { isSignedIn } = useUser();
+
+  const loginHandler = () => {
+    router.push("/sign-in");
+  };
 
   return (
     <>
-      <header className="backdrop-blur-xl  bg-[#171a22] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-16 text-white">
+      <header className="bg-[#171a2299] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-16 text-white shadow-md shadow-[#171a2285] backdrop-blur">
         <div className="container mx-auto px-0 md:px-0 flex w-full justify-between">
           <nav className="flex items-center justify-between w-full">
-            <span className="text-xl font-semibold relative">SK</span>
+            <span className="text-xl font-semibold relative">TargetKill</span>
             <ul className="hidden lg:flex space-x-4">
               {navLinks.map((link) => (
                 <li
@@ -54,15 +63,16 @@ const Header = () => {
               ))}
             </ul>
             <div className="hidden lg:flex lg:items-center">
-              <ToggleTheme />
-              <Separator
-                orientation="vertical"
-                className="mx-2 h-full"
-                decorative={true}
-              />
-              <button className="bg-[#5a8dd3] text-white py-2 px-4 rounded-md text-xs">
-                Login
-              </button>
+              {!isSignedIn ? (
+                <button
+                  className="bg-primary text-white py-2 px-4 rounded-md text-sm font-semibold"
+                  onClick={loginHandler}
+                >
+                  Login
+                </button>
+              ) : (
+                <UserButton afterSignOutUrl="/" />
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -91,8 +101,8 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-full dark:bg-[#171a22] bg-[#f4f4f4] transform transition-all ease-in-out duration-300 ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full text-black"
+        className={`fixed top-0 left-0 w-full h-full bg-[#171a22] transform transition-all ease-in-out duration-300 ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full "
         } z-50 flex flex-col`}
       >
         <button
@@ -105,7 +115,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="text-primary transform transition-transform duration-300 hover:rotate-90"
+            className="text-white transform transition-transform duration-300 hover:rotate-90"
           >
             <path
               d="M6 18L18 6M6 6L18 18"
@@ -127,7 +137,7 @@ const Header = () => {
                       {link.logo}
                     </span>
                     <span
-                      className="text-primary text-xl hover:text-slate-200 ml-1 transition-all duration-1000"
+                      className="text-white text-xl hover:text-slate-200 ml-1 transition-all duration-1000"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.label}
@@ -140,16 +150,19 @@ const Header = () => {
         </ul>
         <div className="flex justify-between flex-col-reverse items-center px-4">
           <div className="flex justify-center flex-1 w-full gap-4">
-            <button className="bg-[#5a8dd3] text-primary py-3 px-4 rounded-md mb-2 w-full text-lg">
-              Login
-            </button>
-            <button className="border-2 border-color-primary dark:bg-secondary text-primary dark:text-primary py-3 px-4 rounded-md mb-2 w-full text-lg">
-              Register
-            </button>
+            {!isSignedIn ? (
+              <>
+                <button className="bg-[#5a8dd3] text-accent py-3 px-4 rounded-md mb-2 w-full text-lg">
+                  Login
+                </button>
+                <button className="border-2 border-color-primary dark:bg-secondary text-accent  py-3 px-4 rounded-md mb-2 w-full text-lg">
+                  Register
+                </button>
+              </>
+            ) : (
+              <UserButton afterSignOutUrl="/" />
+            )}
           </div>
-          <span className="text-primary mb-4 text-xl">
-            <ToggleTheme />
-          </span>
         </div>
       </div>
     </>
