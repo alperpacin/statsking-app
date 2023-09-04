@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
+import PLATFORM_LIST from "@/public/json/platform-api-routes.js";
 
 const SearchBar = ({ icon }) => {
   const inputRef = useRef(null);
   const ref = useRef(null);
   const [focused, setFocused] = useState(false);
+  const [activeTab, setActiveTab] = useState("recent");
   const { register, handleSubmit } = useForm();
+  const [selectedRegion, setSelectedRegion] = useState();
 
   const handleFocus = () => {
     setFocused(true);
@@ -44,18 +47,17 @@ const SearchBar = ({ icon }) => {
             : "rounded-t-md border-[1px] border-gray-200 "
         }`}
       >
-        <div className="px-2 sm:px-4 w-12 xs:w-16 sm:w-16 md:w-24 shrink-0 flex justify-center bg-gray-100">
+        <div className="px-2 sm:px-4 w-12 xs:w-16 sm:w-16 md:w-24 shrink-0 flex justify-center bg-gray-100 border-r-[1px] border-r-gray-200">
           <div className="w-10 h-10 relative">
             <Image
               src={`/images/${icon}-icon.png`}
               alt={`${icon} logo`}
               fill
               sizes="100vw"
-              objectFit="contain"
+              className="object-contain"
             />
           </div>
         </div>
-        <div className="inline-block h-[4rem] min-h-[1em] w-0.5 self-stretch bg-gray-200 opacity-100 dark:opacity-50"></div>
 
         <div className="px-4 w-full">
           <Input
@@ -66,6 +68,8 @@ const SearchBar = ({ icon }) => {
             onFocus={handleFocus}
           />
         </div>
+
+        <div></div>
 
         <div className="flex justify-center items-center space-x-0 px-4">
           <svg
@@ -94,23 +98,49 @@ const SearchBar = ({ icon }) => {
             : "h-0 translate-y--2 opacity-0"
         } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row`}
       >
-        <div className="md:pl-2 w-full lg:w-24  h-10 bg-gray-100 py-6 flex lg:block border-b-[1px]">
-          <button className="flex justify-center lg:justify-start items-center w-full mb-8">
+        <div className="w-full lg:w-24 h-10 lg:h-full bg-gray-100 py-6 flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
+          {/* Updated Button for 'Recent' */}
+          <button
+            onClick={() => setActiveTab("recent")}
+            className={`flex justify-center lg:justify-start items-center w-full mb-8 py-2 ${
+              activeTab === "recent" ? "bg-gray-300" : ""
+            }`}
+          >
             <AiOutlineClockCircle className="text-[24px] text-primary mr-1" />
             <span className="text-xs text-primary hidden md:inline-block">
               Recent
             </span>
           </button>
 
-          <button className="flex justify-center lg:justify-start items-center w-full">
+          {/* Updated Button for 'Favorites' */}
+          <button
+            onClick={() => setActiveTab("favorites")}
+            className={`flex justify-center lg:justify-start items-center w-full ${
+              activeTab === "favorites" ? "bg-gray-300" : ""
+            }`}
+          >
             <AiOutlineStar className="text-[24px] text-primary" />
             <span className="text-xs text-primary hidden md:inline-block">
               Favorites
             </span>
           </button>
         </div>
-        <div className=" h-full min-h-[1em] w-0.5 self-stretch bg-gray-200 opacity-100 dark:opacity-50 hidden lg:inline"></div>
-        <div className="righxt">x</div>
+
+        {/* Step 3: Conditional Rendering */}
+        <div className="flex-1 bg-gray-100 py-4">
+          {activeTab === "recent" && (
+            <div>
+              {/* Your content for the 'Recent' tab */}
+              Recent content goes here.
+            </div>
+          )}
+          {activeTab === "favorites" && (
+            <div>
+              {/* Your content for the 'Favorites' tab */}
+              Favorites content goes here.
+            </div>
+          )}
+        </div>
       </div>
     </form>
   );

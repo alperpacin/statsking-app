@@ -3,6 +3,8 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import "@/styles/globals.css";
 
 import { Noto_Sans } from "next/font/google";
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
 const natoSans = Noto_Sans({
   subsets: ["latin"],
@@ -13,15 +15,17 @@ const natoSans = Noto_Sans({
 export default function App({ Component, pageProps }) {
   return (
     <ClerkProvider {...pageProps}>
-      <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
-        <style jsx global>{`
-          html {
-            font-family: ${natoSans.style.fontFamily};
-          }
-        `}</style>
+      <Provider store={store}>
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+          <style jsx global>{`
+            html {
+              font-family: ${natoSans.style.fontFamily};
+            }
+          `}</style>
 
-        <Component {...pageProps} />
-      </ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
     </ClerkProvider>
   );
 }
