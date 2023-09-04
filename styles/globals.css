@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "_sidebar.css";
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -54,8 +56,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: ;
-    --accent-foreground: 210 40% 98%;
+    --accent: 36, 100%, 61%;
+    --accent-foreground: 172, 100%, 56%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -81,7 +83,7 @@ button:focus {
 }
 
 h4 {
-  background-color: hsl(214, 36%, 19%);
+  background-color: hsl(172, 100%, 56%);
 }
 
 .backdrop-blur {

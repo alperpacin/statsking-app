@@ -41,7 +41,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-[#171a2299] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-16 text-white shadow-md shadow-[#171a2285] backdrop-blur">
+      <header className="bg-[#171a2299] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-20 text-white shadow-md shadow-[#171a2285] backdrop-blur">
         <div className="container mx-auto px-0 md:px-0 flex w-full justify-between">
           <nav className="flex items-center justify-between w-full">
             <span className="text-xl font-semibold relative">TargetKill</span>

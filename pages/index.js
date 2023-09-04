@@ -17,9 +17,10 @@ export default function Home() {
   };
 
   return (
-    <GenericLayout className="min-h-screen bg-[url('/images/league-of-legends/background-image.jpg')] bg-origin-border bg-no-repeat bg-center bg-cover 2xl:bg-cover ">
-      <div className="absolute h-screen w-full bg-gradient-to-t from-primary from-10% to-transparent"></div>
-      <section className=" relative z-10 container flex flex-col pt-16  sm:justify-center h-screen w-full lg:w-2/3 xl:w-1/2 xl:max-w-[1140px]">
+    <GenericLayout className="min-h-screen">
+      <div className="bg-[url('/images/league-of-legends/background-image.jpg')] bg-origin-border bg-no-repeat bg-center bg-cover z-0 fixed bottom-0 top-0 left-0 right-0 "></div>
+      <div className="h-screen w-full bg-gradient-to-t from-primary from-10% to-transparent fixed"></div>
+      <section className=" relative z-10 container flex flex-col sm:justify-center h-screen w-full lg:w-2/3 xl:w-1/2 xl:max-w-[1140px]">
         <h1 className="text-xl sm:text-5xl font-extrabold mt-10 mb-5 leading-snug tracking-wider text-shadow-md">
           League of Legends
         </h1>
@@ -30,6 +31,53 @@ export default function Home() {
         </h3>
 
         <SearchBar icon={"lol"} />
+      </section>
+      <section>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </section>
     </GenericLayout>
   );

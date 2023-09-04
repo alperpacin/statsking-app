@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 import PLATFORM_LIST from "@/public/json/platform-api-routes.js";
+import GAME_LIST from "@/public/json/game-platforms";
+import Link from "next/link";
+import Dropdown from "../Dropdown/Dropdown";
 
 const SearchBar = ({ icon }) => {
   const inputRef = useRef(null);
@@ -38,7 +41,10 @@ const SearchBar = ({ icon }) => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full relative z-[2190]"
+    >
       <div
         ref={inputRef}
         className={`flex items-center space-x-0  border-gray-200 bg-gray-100 dark:bg-gray-100 transition-all duration-500 ${
@@ -47,31 +53,21 @@ const SearchBar = ({ icon }) => {
             : "rounded-t-md border-[1px] border-gray-200 "
         }`}
       >
-        <div className="px-2 sm:px-4 w-12 xs:w-16 sm:w-16 md:w-24 shrink-0 flex justify-center bg-gray-100 border-r-[1px] border-r-gray-200">
-          <div className="w-10 h-10 relative">
-            <Image
-              src={`/images/${icon}-icon.png`}
-              alt={`${icon} logo`}
-              fill
-              sizes="100vw"
-              className="object-contain"
-            />
-          </div>
+        <div className="w-12 sm:w-24 h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200">
+          <Dropdown items={GAME_LIST} />
         </div>
 
         <div className="px-4 w-full">
           <Input
             type="text"
-            className="min-w-full border-0 shadow-none placeholder:text-[#171a2250] text-[#171a22]"
+            className="min-w-full border-0 shadow-none placeholder:text-[#171a2250] text-[#171a22] py-2 text-lg"
             placeholder="Search for a player (ex. John#EUW1)"
             {...register("search", { minLength: 1 })}
             onFocus={handleFocus}
           />
         </div>
 
-        <div></div>
-
-        <div className="flex justify-center items-center space-x-0 px-4">
+        <div className="flex justify-center items-center space-x-0 pr-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
