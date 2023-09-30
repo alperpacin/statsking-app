@@ -1,5 +1,5 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { appWithTranslation } from "next-i18next";
 import "@/styles/globals.css";
 
 import { Noto_Sans } from "next/font/google";
@@ -12,20 +12,20 @@ const natoSans = Noto_Sans({
   display: "swap",
 });
 
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   return (
-    <ClerkProvider {...pageProps}>
-      <Provider store={store}>
-        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
-          <style jsx global>{`
-            html {
-              font-family: ${natoSans.style.fontFamily};
-            }
-          `}</style>
+    <Provider store={store}>
+      <ThemeProvider attribute="class">
+        <style jsx global>{`
+          html {
+            font-family: ${natoSans.style.fontFamily};
+          }
+        `}</style>
 
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Provider>
-    </ClerkProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
+
+export default appWithTranslation(App);

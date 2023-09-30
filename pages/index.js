@@ -1,6 +1,7 @@
 import axios from "axios";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import GenericLayout from "@/layout/generic-layout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Home() {
   const getSummoner = async () => {
@@ -17,7 +18,7 @@ export default function Home() {
   };
 
   return (
-    <GenericLayout className="min-h-screen">
+    <GenericLayout className="min-h-screen sm:pl-[4rem]">
       <div className="bg-[url('/images/league-of-legends/background-image.jpg')] bg-origin-border bg-no-repeat bg-center bg-cover z-0 fixed bottom-0 top-0 left-0 right-0 "></div>
       <div className="h-screen w-full bg-gradient-to-t from-primary from-10% to-transparent fixed"></div>
       <section className=" relative z-10 container flex flex-col sm:justify-center h-screen w-full lg:w-2/3 xl:w-1/2 xl:max-w-[1140px]">
@@ -81,4 +82,12 @@ export default function Home() {
       </section>
     </GenericLayout>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common", "sidebar"])),
+    },
+  };
 }
