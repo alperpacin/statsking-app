@@ -12,7 +12,7 @@ const SideBar = () => {
   const { t } = useTranslation("sidebar");
 
   return (
-    <div className="fixed z-[30] bottom-0 sm:bottom-auto right-0 sm:right-auto sm:top-0 left-0 h-16 sm:h-screen w-full sm:w-16 flex flex-row sm:flex-col bg-[#423b3b] shadow-lg">
+    <div className="fixed z-[30] bottom-0 sm:bottom-auto right-0 sm:right-auto sm:top-0 left-0 h-16 sm:h-screen w-full sm:w-16 flex flex-row sm:flex-col bg-[#2D4263] shadow-lg">
       <div className="flex flex-row sm:flex-col justify-between sm:justify-start flex-1 px-4 sm:px-0">
         <SideBarMainIcon icon={<Logo size="28" />} text="TargetKill" href="/" />
         <Divider />

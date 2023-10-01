@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    --background: 242, 22%, 6%;
-    --foreground: 210 40% 98%;
+    --background: 216, 18.07%, 16.27%;
+    --foreground: 0, 10%, 90%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -83,7 +83,7 @@ button:focus {
 }
 
 h4 {
-  background-color: hsl(172, 100%, 56%);
+  background-color: hsl(220, 6%, 90%);
 }
 
 .backdrop-blur {

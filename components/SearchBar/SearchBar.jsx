@@ -47,10 +47,8 @@ const SearchBar = ({ icon }) => {
     >
       <div
         ref={inputRef}
-        className={`flex items-center space-x-0  border-gray-200 bg-gray-100 dark:bg-gray-100 transition-all duration-500 ${
-          !focused
-            ? "rounded-md border-[1px]"
-            : "rounded-t-md border-[1px] border-gray-200 "
+        className={`flex items-center space-x-0  border-gray-200 overflow-hidden bg-gray-100 dark:bg-gray-100 transition-all duration-500 ${
+          !focused ? "rounded-md" : "rounded-t-md"
         }`}
       >
         <div className="w-12 sm:w-24 h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200">
@@ -60,7 +58,7 @@ const SearchBar = ({ icon }) => {
         <div className="px-4 w-full">
           <Input
             type="text"
-            className="min-w-full border-0 shadow-none placeholder:text-[#171a2250] text-[#171a22] py-2 text-lg"
+            className="min-w-full border-0 shadow-none placeholder:text-[#171a2250] text-[#171a22] py-2 md:py-4 text-sm md:text-lg"
             placeholder="Search for a player (ex. John#EUW1)"
             {...register("search", { minLength: 1 })}
             onFocus={handleFocus}
@@ -92,13 +90,13 @@ const SearchBar = ({ icon }) => {
           focused
             ? "h-48 sm:h-64 translate-y-0 opacity-100"
             : "h-0 translate-y--2 opacity-0"
-        } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row`}
+        } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row  border-[1px] border-gray-200`}
       >
-        <div className="w-full lg:w-24 h-10 lg:h-full bg-gray-100 py-6 flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
+        <div className="w-full lg:w-24 h-8 sm:h-16 lg:h-full bg-gray-100  flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
           {/* Updated Button for 'Recent' */}
           <button
             onClick={() => setActiveTab("recent")}
-            className={`flex justify-center lg:justify-start items-center w-full mb-8 py-2 ${
+            className={`flex justify-center lg:justify-start items-center w-full md:py-8 ${
               activeTab === "recent" ? "bg-gray-300" : ""
             }`}
           >
@@ -111,7 +109,7 @@ const SearchBar = ({ icon }) => {
           {/* Updated Button for 'Favorites' */}
           <button
             onClick={() => setActiveTab("favorites")}
-            className={`flex justify-center lg:justify-start items-center w-full ${
+            className={`flex justify-center lg:justify-start items-center w-full md:py-8 ${
               activeTab === "favorites" ? "bg-gray-300" : ""
             }`}
           >

@@ -9,6 +9,7 @@ const Dropdown = ({ items }) => {
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (item) => {
+    setOpen(false);
     setSelectedItem(item);
   };
 
