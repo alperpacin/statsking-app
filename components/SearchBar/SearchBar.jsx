@@ -1,42 +1,44 @@
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-
 import { useForm } from "react-hook-form";
 import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
-import PLATFORM_LIST from "@/public/json/platform-api-routes.js";
+import {
+  PLATFORM_LIST_LOL,
+  PLATFORM_LIST_VAL,
+} from "@/public/json/platform-api-routes.js";
 import GAME_LIST from "@/public/json/game-platforms";
-import Link from "next/link";
-import Dropdown from "../Dropdown/Dropdown";
+import GameDropdown from "../GameDropdown/game-dropdown";
+import RegionDropdown from "../RegionDropdown/region-dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSearchOpen } from "@/store/slices/searchBarSlice";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
-const SearchBar = ({ icon }) => {
+const SearchBar = (props) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const searchBarState = useSelector((state) => state.searchBar);
   const inputRef = useRef(null);
   const ref = useRef(null);
-  const [focused, setFocused] = useState(false);
   const [activeTab, setActiveTab] = useState("recent");
   const { register, handleSubmit } = useForm();
-  const [selectedRegion, setSelectedRegion] = useState();
+
+  const dropdownItems =
+    router.pathname.includes("/valorant") &&
+    searchBarState.game.value &&
+    searchBarState.game.value.id === "valorant"
+      ? PLATFORM_LIST_VAL
+      : PLATFORM_LIST_LOL;
 
   const handleFocus = () => {
-    setFocused(true);
+    dispatch(updateSearchOpen(true));
   };
 
-  //for listening outside clicks
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (
-        !ref?.current?.contains(e.target) &&
-        !inputRef?.current?.contains(e.target)
-      ) {
-        setFocused(false);
-      }
-    };
+  const closeSearchDropdown = () => {
+    dispatch(updateSearchOpen(false));
+  };
 
-    document.addEventListener("click", handleOutsideClick, false);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick, false);
-    };
-  }, []);
+  useOutsideClick(inputRef, ref, closeSearchDropdown);
 
   const onSubmit = (data) => console.log(data);
 
@@ -48,11 +50,17 @@ const SearchBar = ({ icon }) => {
       <div
         ref={inputRef}
         className={`flex items-center space-x-0  border-gray-200 overflow-hidden bg-gray-100 dark:bg-gray-100 transition-all duration-500 ${
-          !focused ? "rounded-md" : "rounded-t-md"
+          !searchBarState.search.open ? "rounded-md" : "rounded-t-md"
         }`}
       >
-        <div className="w-12 sm:w-24 h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200">
-          <Dropdown items={GAME_LIST} />
+        <div className="w-12  h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
+          <GameDropdown items={GAME_LIST} searchBarState={searchBarState} />
+        </div>
+        <div className="w-12  h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
+          <RegionDropdown
+            items={dropdownItems}
+            searchBarState={searchBarState}
+          />
         </div>
 
         <div className="px-4 w-full">
@@ -85,9 +93,9 @@ const SearchBar = ({ icon }) => {
       </div>
       <div
         ref={ref}
-        onFocus={() => setFocused(true)}
+        onFocus={() => dispatch(updateSearchOpen(true))}
         className={`${
-          focused
+          searchBarState.search.open
             ? "h-48 sm:h-64 translate-y-0 opacity-100"
             : "h-0 translate-y--2 opacity-0"
         } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row  border-[1px] border-gray-200`}

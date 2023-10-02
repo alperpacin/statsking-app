@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "_sidebar.css";
+@import "_scrollbar.css";
 
 @layer base {
   :root {

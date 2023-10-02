@@ -1,4 +1,4 @@
-const PLATFORM_LIST = [
+export const PLATFORM_LIST_LOL = [
   { code: "NA1", label: "NA", url: "na1.api.riotgames.com" },
   { code: "EUW1", label: "EUW", url: "euw1.api.riotgames.com" },
   { code: "EUN1", label: "EUN", url: "eun1.api.riotgames.com" },
@@ -16,4 +16,12 @@ const PLATFORM_LIST = [
   { code: "VN2", label: "VN", url: "vn2.api.riotgames.com" },
 ];
 
-export default PLATFORM_LIST;
+export const PLATFORM_LIST_VAL = [
+  { code: "NA", label: "NA", url: "na.api.riotgames.com" },
+  { code: "EU", label: "EU", url: "eu.api.riotgames.com" },
+  { code: "LATAM", label: "LATAM", url: "latam.api.riotgames.com" },
+  { code: "BR", label: "BR", url: "br.api.riotgames.com" },
+  { code: "KR", label: "KR", url: "kr.api.riotgames.com" },
+  { code: "AP", label: "AP", url: "ap.api.riotgames.com" },
+  { code: "ESPORTS", label: "ESPORTS", url: "esports.api.riotgames.com" },
+];
