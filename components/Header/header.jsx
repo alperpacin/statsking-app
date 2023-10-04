@@ -6,10 +6,8 @@ import classes from "./header.module.css";
 import LolLogo from "../../public/images/lol-logo.svg";
 import ValorantLogo from "../../public/images/valorant-logo.svg";
 import TftLogo from "../../public/images/tft-logo.svg";
-import { Separator } from "../ui/separator";
+import BrandLogo from "@/public/images/icon.svg";
 import { useRouter } from "next/router";
-
-import { UserButton, useUser } from "@clerk/nextjs";
 
 const navLinks = [
   {
@@ -33,18 +31,18 @@ const Header = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { isSignedIn } = useUser();
-
   const loginHandler = () => {
     router.push("/sign-in");
   };
 
   return (
     <>
-      <header className="bg-[#171a2299] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-20 text-white shadow-md shadow-[#171a2285] backdrop-blur">
+      <header className="bg-[#171a22] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-20 text-white shadow-md shadow-[#171a2285]">
         <div className="container mx-auto px-0 md:px-0 flex w-full justify-between">
           <nav className="flex items-center justify-between w-full">
-            <span className="text-xl font-semibold relative">TargetKill</span>
+            <span className="text-xl font-black relative w-8 sm:w-12">
+              <BrandLogo />
+            </span>
             <ul className="hidden lg:flex space-x-4">
               {navLinks.map((link) => (
                 <li
@@ -63,16 +61,12 @@ const Header = () => {
               ))}
             </ul>
             <div className="hidden lg:flex lg:items-center">
-              {!isSignedIn ? (
-                <button
-                  className="bg-primary text-white py-2 px-4 rounded-md text-sm font-semibold"
-                  onClick={loginHandler}
-                >
-                  Login
-                </button>
-              ) : (
-                <UserButton afterSignOutUrl="/" />
-              )}
+              <button
+                className="bg-primary text-white py-2 px-4 rounded-md text-sm font-semibold"
+                onClick={loginHandler}
+              >
+                Login
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -102,11 +96,11 @@ const Header = () => {
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 left-0 w-full h-full bg-[#171a22] transform transition-all ease-in-out duration-300 ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full "
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
         } z-50 flex flex-col`}
       >
         <button
-          className="pt-6 pr-4 flex justify-end"
+          className="absolute top-[2rem] right-[1rem]"
           onClick={() => setIsMenuOpen(false)}
         >
           <svg
@@ -126,8 +120,10 @@ const Header = () => {
             />
           </svg>
         </button>
-
-        <ul className="space-y-4 mt-8  flex-1 overflow-y-auto">
+        <span className="text-xl font-black w-8 sm:w-12 absolute top-[1.75rem] left-[50%] translate-x-[-50%]">
+          <BrandLogo />
+        </span>
+        <ul className="space-y-4 pt-16 sm:pt-24 flex-1 overflow-y-auto">
           <div className="flex flex-col flex-1">
             {navLinks.map((link) => (
               <li key={link.href} className="my-4">
@@ -150,18 +146,12 @@ const Header = () => {
         </ul>
         <div className="flex justify-between flex-col-reverse items-center px-4">
           <div className="flex justify-center flex-1 w-full gap-4">
-            {!isSignedIn ? (
-              <>
-                <button className="bg-[#5a8dd3] text-accent py-3 px-4 rounded-md mb-2 w-full text-lg">
-                  Login
-                </button>
-                <button className="border-2 border-color-primary dark:bg-secondary text-accent  py-3 px-4 rounded-md mb-2 w-full text-lg">
-                  Register
-                </button>
-              </>
-            ) : (
-              <UserButton afterSignOutUrl="/" />
-            )}
+            <button className="bg-[#5a8dd3] text-accent py-3 px-4 rounded-md mb-2 w-full text-lg">
+              Login
+            </button>
+            <button className="border-2 border-color-primary dark:bg-secondary text-accent  py-3 px-4 rounded-md mb-2 w-full text-lg">
+              Register
+            </button>
           </div>
         </div>
       </div>

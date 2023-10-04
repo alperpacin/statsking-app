@@ -1,10 +1,11 @@
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Header from "@/components/Header/header";
+
 import React from "react";
 
 function GenericLayout({ children, className }) {
   return (
     <main className={`${className} flex`}>
-      <Sidebar />
+      <Header />
       <div className="flex flex-1">{children}</div>
     </main>
   );
