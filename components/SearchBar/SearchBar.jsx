@@ -1,15 +1,13 @@
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 import {
   PLATFORM_LIST_LOL,
   PLATFORM_LIST_VAL,
 } from "@/public/json/platform-api-routes.js";
-import GAME_LIST from "@/public/json/game-platforms";
-import GameDropdown from "../GameDropdown/game-dropdown";
-import RegionDropdown from "../RegionDropdown/region-dropdown";
+import RegionModal from "../RegionModal/region-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSearchOpen } from "@/store/slices/searchBarSlice";
 import useOutsideClick from "@/hooks/useOutsideClick";
@@ -23,7 +21,7 @@ const SearchBar = (props) => {
   const [activeTab, setActiveTab] = useState("recent");
   const { register, handleSubmit } = useForm();
 
-  const dropdownItems =
+  const modalItems =
     router.pathname.includes("/valorant") &&
     searchBarState.game.value &&
     searchBarState.game.value.id === "valorant"
@@ -53,14 +51,8 @@ const SearchBar = (props) => {
           !searchBarState.search.open ? "rounded-md" : "rounded-t-md"
         }`}
       >
-        <div className="w-12  h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
-          <GameDropdown items={GAME_LIST} searchBarState={searchBarState} />
-        </div>
-        <div className="w-12  h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
-          <RegionDropdown
-            items={dropdownItems}
-            searchBarState={searchBarState}
-          />
+        <div className="h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
+          <RegionModal items={modalItems} searchBarState={searchBarState} />
         </div>
 
         <div className="px-4 w-full">
@@ -96,19 +88,19 @@ const SearchBar = (props) => {
         onFocus={() => dispatch(updateSearchOpen(true))}
         className={`${
           searchBarState.search.open
-            ? "h-48 sm:h-64 translate-y-0 opacity-100"
+            ? "h-48 lg:h-auto translate-y-0 opacity-100"
             : "h-0 translate-y--2 opacity-0"
         } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row  border-[1px] border-gray-200`}
       >
-        <div className="w-full lg:w-24 h-8 sm:h-16 lg:h-full bg-gray-100  flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
+        <div className="w-full lg:w-20 h-8 sm:h-16 lg:h-full bg-gray-100  flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
           {/* Updated Button for 'Recent' */}
           <button
             onClick={() => setActiveTab("recent")}
-            className={`flex justify-center lg:justify-start items-center w-full md:py-8 ${
+            className={`flex justify-center lg:justify-start flex-col items-center w-full md:py-8 ${
               activeTab === "recent" ? "bg-gray-300" : ""
             }`}
           >
-            <AiOutlineClockCircle className="text-[24px] text-primary mr-1" />
+            <AiOutlineClockCircle className="text-[24px] text-primary" />
             <span className="text-xs text-primary hidden md:inline-block">
               Recent
             </span>
@@ -117,7 +109,7 @@ const SearchBar = (props) => {
           {/* Updated Button for 'Favorites' */}
           <button
             onClick={() => setActiveTab("favorites")}
-            className={`flex justify-center lg:justify-start items-center w-full md:py-8 ${
+            className={`flex justify-center lg:justify-start flex-col items-center w-full md:py-8 ${
               activeTab === "favorites" ? "bg-gray-300" : ""
             }`}
           >
