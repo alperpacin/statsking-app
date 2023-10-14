@@ -12,6 +12,14 @@ const nextConfig = {
     return config;
   },
   i18n,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "ddragon.leagueoflegends.com",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

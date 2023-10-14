@@ -19,6 +19,7 @@ const Dropdown = ({ items, searchBarState }) => {
   const ref = useRef(null);
 
   const handleItemClick = (item) => {
+    localStorage.setItem("selectedRegion", JSON.stringify(item.url));
     dispatch(updateRegionOpen(false));
     dispatch(updateRegionValue(item));
   };
@@ -27,7 +28,7 @@ const Dropdown = ({ items, searchBarState }) => {
     <div className={`${classes["dropdown"]}`} ref={ref}>
       {searchBarState.region.value && (
         <div
-          className={`${classes["dropdown-header"]} bg-accent w-12 sm:w-20 py-6 px-4`}
+          className={`${classes["dropdown-header"]} bg-accent w-12 sm:w-20 py-4 px-4`}
           onClick={onOpen}
         >
           <span className="font-bold text-white text-[14px] sm:text-[16px] ">
@@ -43,9 +44,12 @@ const Dropdown = ({ items, searchBarState }) => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         classNames={{
-          body: "px-8 pb-8",
-          header: "flex items-center justify-center text-black font-bold",
+          base: "bg-secondary",
+          body: "px-8 pb-8 bg-secondary",
+          header:
+            "flex items-center justify-center text-white font-bold bg-secondary",
           backdrop: "backdrop-opacity-10 backdrop-blur",
+          closeButton: "mr-4 mt-3",
         }}
       >
         <ModalContent>
@@ -63,9 +67,9 @@ const Dropdown = ({ items, searchBarState }) => {
                     key={item.code}
                   >
                     <span
-                      className={`text-sm w-100 text-primary p-1 rounded-sm ${
+                      className={`w-100 text-sm text-white p-1 rounded-sm ${
                         item.code === searchBarState.region.value?.code
-                          ? "bg-accent text-white font-medium"
+                          ? "bg-accent text-white font-medium px-2"
                           : "bg-transparent font-light hover:text-accent transition duration-50 ease-in-out"
                       }`}
                     >

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Link from "next/link";
-import ToggleTheme from "../ui/toggle-theme";
 
 import classes from "./header.module.css";
 import LolLogo from "../../public/images/lol-logo.svg";
@@ -8,6 +7,8 @@ import ValorantLogo from "../../public/images/valorant-logo.svg";
 import TftLogo from "../../public/images/tft-logo.svg";
 import BrandLogo from "@/public/images/icon.svg";
 import { useRouter } from "next/router";
+import SearchBar from "../SearchBar/SearchBar";
+import { useTranslation } from "next-i18next";
 
 const navLinks = [
   {
@@ -29,6 +30,7 @@ const navLinks = [
 
 const Header = () => {
   const router = useRouter();
+  const { t } = useTranslation("buttons");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const loginHandler = () => {
@@ -37,13 +39,13 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-[#171a22] text-primary-color fixed top-0 w-full z-40 flex px-4 md:px-20 py-4 h-20 text-white shadow-md shadow-[#171a2285]">
+      <header className="bg-[#171a22] text-primary-color fixed top-0 w-full z-40 flex px-4 lg:px-20 h-20 text-white shadow-md shadow-[#171a2285]">
         <div className="container mx-auto px-0 md:px-0 flex w-full justify-between">
           <nav className="flex items-center justify-between w-full">
-            <span className="text-xl font-black relative w-8 sm:w-12">
+            <span className="hidden sm:flex text-xl font-black relative w-8 sm:w-12">
               <BrandLogo />
             </span>
-            <ul className="hidden lg:flex space-x-4">
+            {/* <ul className="hidden lg:flex space-x-4">
               {navLinks.map((link) => (
                 <li
                   key={link.href}
@@ -59,13 +61,16 @@ const Header = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul> */}
+            <div className="w-[560px] pr-4 sm:px-4">
+              <SearchBar icon={"lol"} />
+            </div>
             <div className="hidden lg:flex lg:items-center">
               <button
                 className="bg-primary text-white py-2 px-4 rounded-md text-sm font-semibold"
                 onClick={loginHandler}
               >
-                Login
+                {t("login")}
               </button>
             </div>
 

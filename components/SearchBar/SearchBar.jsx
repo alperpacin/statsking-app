@@ -2,7 +2,6 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 import {
   PLATFORM_LIST_LOL,
   PLATFORM_LIST_VAL,
@@ -10,11 +9,12 @@ import {
 import RegionModal from "../RegionModal/region-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSearchOpen } from "@/store/slices/searchBarSlice";
-import useOutsideClick from "@/hooks/useOutsideClick";
+import { useTranslation } from "next-i18next";
 
 const SearchBar = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { t } = useTranslation("search");
   const searchBarState = useSelector((state) => state.searchBar);
   const inputRef = useRef(null);
   const ref = useRef(null);
@@ -32,11 +32,9 @@ const SearchBar = (props) => {
     dispatch(updateSearchOpen(true));
   };
 
-  const closeSearchDropdown = () => {
+  const handleBlur = () => {
     dispatch(updateSearchOpen(false));
   };
-
-  useOutsideClick(inputRef, ref, closeSearchDropdown);
 
   const onSubmit = (data) => console.log(data);
 
@@ -47,32 +45,35 @@ const SearchBar = (props) => {
     >
       <div
         ref={inputRef}
-        className={`flex items-center space-x-0  border-gray-200 overflow-hidden bg-gray-100 dark:bg-gray-100 transition-all duration-500 ${
-          !searchBarState.search.open ? "rounded-md" : "rounded-t-md"
+        className={`flex items-center space-x-0 border-[1.5px]  overflow-hidden bg-background dark:bg-gray-100 transition-all duration-500 rounded-md ${
+          searchBarState.search.open
+            ? "border-accent"
+            : " border-accent-foreground"
         }`}
       >
-        <div className="h-full shrink-0 bg-gray-100 border-r-[1px] border-r-gray-200 flex justify-center items-center">
+        <div className="h-10 sm:h-12 shrink-0 bg-gray-10 flex justify-center items-center">
           <RegionModal items={modalItems} searchBarState={searchBarState} />
         </div>
 
         <div className="px-4 w-full">
           <Input
             type="text"
-            className="min-w-full border-0 shadow-none placeholder:text-[#171a2250] text-[#171a22] py-2 md:py-4 text-sm md:text-lg"
-            placeholder="Search for a player (ex. John#EUW1)"
+            className="min-w-full border-0 shadow-none placeholder:text-[#797979] text-white text-sm md:text-lg"
+            placeholder={t("placeholder")}
             {...register("search", { minLength: 1 })}
             onFocus={handleFocus}
+            onBlur={handleBlur}
           />
         </div>
 
-        <div className="flex justify-center items-center space-x-0 pr-4">
+        <div className="flex justify-center items-center space-x-0 pr-2 pl-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-4 h-4 sm:w-6 sm:h-6 text-[#171a22]"
+            className="w-4 h-4 sm:w-6 sm:h-6 text-white"
           >
             <path
               strokeLinecap="round"
@@ -83,7 +84,7 @@ const SearchBar = (props) => {
         </div>
         <input type="submit" className="hidden" />
       </div>
-      <div
+      {/* <div
         ref={ref}
         onFocus={() => dispatch(updateSearchOpen(true))}
         className={`${
@@ -93,7 +94,7 @@ const SearchBar = (props) => {
         } overflow-hidden transition-all duration-500 bg-slate-100 rounded-b-sm absolute w-full top-full flex flex-col lg:flex-row  border-[1px] border-gray-200`}
       >
         <div className="w-full lg:w-20 h-8 sm:h-16 lg:h-full bg-gray-100  flex lg:block border-b-[1px] border-b-gray-200 lg:border-b-0 lg:border-r-[1px] lg:border-r-gray-200">
-          {/* Updated Button for 'Recent' */}
+     
           <button
             onClick={() => setActiveTab("recent")}
             className={`flex justify-center lg:justify-start flex-col items-center w-full md:py-8 ${
@@ -106,7 +107,6 @@ const SearchBar = (props) => {
             </span>
           </button>
 
-          {/* Updated Button for 'Favorites' */}
           <button
             onClick={() => setActiveTab("favorites")}
             className={`flex justify-center lg:justify-start flex-col items-center w-full md:py-8 ${
@@ -120,22 +120,22 @@ const SearchBar = (props) => {
           </button>
         </div>
 
-        {/* Step 3: Conditional Rendering */}
+ 
         <div className="flex-1 bg-gray-100 py-4">
           {activeTab === "recent" && (
             <div>
-              {/* Your content for the 'Recent' tab */}
+        
               Recent content goes here.
             </div>
           )}
           {activeTab === "favorites" && (
             <div>
-              {/* Your content for the 'Favorites' tab */}
+           
               Favorites content goes here.
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </form>
   );
 };
