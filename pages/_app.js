@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +39,7 @@ function InnerApp({ Component, pageProps }) {
   );
 }
 
-const App = ({ Component, pageProps }) => (
+const App = ({ Component, pageProps: { session, ...pageProps } }) => (
   <>
     <Head>
       <meta
@@ -67,9 +68,10 @@ const App = ({ Component, pageProps }) => (
       <meta name="msapplication-TileColor" content="#b91d47" />
       <meta name="theme-color" content="#ffffff" />
     </Head>
-
     <Provider store={store}>
-      <InnerApp Component={Component} pageProps={pageProps} />
+      <SessionProvider session={session}>
+        <InnerApp Component={Component} pageProps={pageProps} />
+      </SessionProvider>
     </Provider>
   </>
 );
